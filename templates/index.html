@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Applyra | AI Internship Copilot</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/index.css"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Applyra<span>.</span>
+        </div>
+
+        <button
+            id="loginBtn"
+            class="login-btn"
+        >
+            Login
+        </button>
+
+    </nav>
+
+
+    <main class="hero">
+
+        <section class="hero-content">
+
+            <div class="badge">
+                AI POWERED APPLICATION TRACKING
+            </div>
+
+            <h1>
+                Find the role.
+                <br>
+
+                <span>
+                    We'll handle the rest.
+                </span>
+            </h1>
+
+            <p>
+                Applyra analyzes internship opportunities,
+                matches them with your profile and helps you
+                manage applications and follow-ups intelligently.
+            </p>
+
+            <button
+                id="getStartedBtn"
+                class="primary-btn"
+            >
+                Get Started
+                <span>→</span>
+            </button>
+
+        </section>
+
+
+        <section class="hero-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <small>
+                        PROFILE ANALYSIS
+                    </small>
+
+                    <h3>
+                        AI Engineering Intern
+                    </h3>
+
+                </div>
+
+                <span class="status">
+                    Strong Match
+                </span>
+
+            </div>
+
+
+            <div class="match-section">
+
+                <div class="score">
+                    89<span>%</span>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Profile Match
+                    </strong>
+
+                    <p>
+                        Your experience aligns strongly
+                        with this opportunity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="skills">
+
+                <small>
+                    MATCHED SKILLS
+                </small>
+
+                <div class="skill-list">
+
+                    <span>Python</span>
+                    <span>FastAPI</span>
+                    <span>RAG</span>
+                    <span>LangGraph</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <div>
+
+                    <small>
+                        RECOMMENDATION
+                    </small>
+
+                    <p>
+                        Highlight your RAG project
+                        higher in your resume.
+                    </p>
+
+                </div>
+
+                <span class="ai-icon">
+                    AI
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div class="bottom-text">
+
+        <span></span>
+
+        <p>
+            ANALYZE · MATCH · APPLY · FOLLOW UP
+        </p>
+
+        <span></span>
+
+    </div>
+
+
+    <script>
+
+        const loginBtn =
+            document.getElementById("loginBtn");
+
+        const getStartedBtn =
+            document.getElementById("getStartedBtn");
+
+
+        function openLoginPage() {
+
+            window.location.href = "/user/login";
+
+        }
+
+
+        loginBtn.addEventListener(
+            "click",
+            openLoginPage
+        );
+
+
+        getStartedBtn.addEventListener(
+            "click",
+            openLoginPage
+        );
+
+    </script>
+
+</body>
+
+</html>

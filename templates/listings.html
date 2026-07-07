@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Applications | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/listings.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div
+                class="logo"
+                id="logo"
+            >
+
+                Applyra<span>.</span>
+
+            </div>
+
+
+            <div class="nav-actions">
+
+
+                <div class="notification-wrapper">
+
+
+                    <button
+                        class="notification-bell"
+                        id="notificationBell"
+                        type="button"
+                    >
+
+                        <span class="bell-icon">
+                            🔔
+                        </span>
+
+
+                        <span
+                            class="notification-count"
+                            id="notificationCount"
+                        >
+
+                            0
+
+                        </span>
+
+                    </button>
+
+
+
+                    <div
+                        class="notification-panel"
+                        id="notificationPanel"
+                    >
+
+
+                        <div
+                            class="notification-list-view"
+                            id="notificationListView"
+                        >
+
+
+                            <div class="notification-header">
+
+                                <div>
+
+                                    <span class="notification-label">
+
+                                        UPDATES
+
+                                    </span>
+
+
+                                    <h2>
+
+                                        Notifications<span>.</span>
+
+                                    </h2>
+
+                                </div>
+
+
+                                <button
+                                    class="notification-close"
+                                    id="notificationClose"
+                                    type="button"
+                                >
+
+                                    ×
+
+                                </button>
+
+                            </div>
+
+
+
+                            <div
+                                class="notification-list"
+                                id="notificationList"
+                            >
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div
+                            class="notification-detail-view"
+                            id="notificationDetailView"
+                        >
+
+
+                            <button
+                                class="notification-back"
+                                id="notificationBack"
+                                type="button"
+                            >
+
+                                <span>
+                                    ←
+                                </span>
+
+                                Back
+
+                            </button>
+
+
+
+                            <div class="notification-detail-content">
+
+
+                                <span class="notification-detail-label">
+
+                                    REMINDER
+
+                                </span>
+
+
+                                <h2
+                                    id="notificationTitle"
+                                >
+
+                                </h2>
+
+
+                                <p
+                                    id="notificationMessage"
+                                >
+
+                                </p>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <button
+                    class="add-listing-btn"
+                    id="addListingBtn"
+                >
+
+                    <span class="plus-icon">
+
+                        +
+
+                    </span>
+
+                    Add Listing
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <main class="listing-page">
+
+
+        <section class="page-header">
+
+
+            <p class="page-label">
+
+                APPLICATION TRACKING
+
+            </p>
+
+
+            <div class="header-content">
+
+
+                <div>
+
+                    <h1>
+
+                        My Applications<span>.</span>
+
+                    </h1>
+
+
+                    <p class="page-description">
+
+                        Every opportunity you've applied to,
+                        tracked in one place.
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="application-count"
+                    id="applicationCount"
+                >
+
+                    <span
+                        class="count-number"
+                        id="countNumber"
+                    >
+
+                        0
+
+                    </span>
+
+
+                    <span class="count-label">
+
+                        APPLICATIONS
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <section
+            class="listing-grid"
+            id="listingGrid"
+        >
+
+        </section>
+
+
+
+        <section
+            class="empty-state"
+            id="emptyState"
+        >
+
+
+            <div class="empty-icon">
+
+                +
+
+            </div>
+
+
+            <h2>
+
+                No applications yet.
+
+            </h2>
+
+
+            <p>
+
+                Add your first opportunity and let
+                Applyra start tracking it.
+
+            </p>
+
+
+            <button
+                class="empty-add-btn"
+                id="emptyAddBtn"
+            >
+
+                Add your first listing
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </section>
+
+
+
+        <p
+            class="error-message"
+            id="errorMessage"
+        >
+
+        </p>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        const listingGrid =
+            document.getElementById(
+                "listingGrid"
+            );
+
+
+        const emptyState =
+            document.getElementById(
+                "emptyState"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const addListingBtn =
+            document.getElementById(
+                "addListingBtn"
+            );
+
+
+        const emptyAddBtn =
+            document.getElementById(
+                "emptyAddBtn"
+            );
+
+
+        const logo =
+            document.getElementById(
+                "logo"
+            );
+
+
+        const countNumber =
+            document.getElementById(
+                "countNumber"
+            );
+
+
+
+        const notificationBell =
+            document.getElementById(
+                "notificationBell"
+            );
+
+
+        const notificationCount =
+            document.getElementById(
+                "notificationCount"
+            );
+
+
+        const notificationPanel =
+            document.getElementById(
+                "notificationPanel"
+            );
+
+
+        const notificationClose =
+            document.getElementById(
+                "notificationClose"
+            );
+
+
+        const notificationList =
+            document.getElementById(
+                "notificationList"
+            );
+
+
+        const notificationListView =
+            document.getElementById(
+                "notificationListView"
+            );
+
+
+        const notificationDetailView =
+            document.getElementById(
+                "notificationDetailView"
+            );
+
+
+        const notificationBack =
+            document.getElementById(
+                "notificationBack"
+            );
+
+
+        const notificationTitle =
+            document.getElementById(
+                "notificationTitle"
+            );
+
+
+        const notificationMessage =
+            document.getElementById(
+                "notificationMessage"
+            );
+
+
+
+        let openedNotificationId = null;
+
+
+
+        async function loadListings() {
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+            if (!token) {
+
+
+                window.location.href =
+                    "/user/login";
+
+
+                return;
+
+
+            }
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    "/listing/all",
+
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                const data =
+                    await response.json();
+
+
+
+                if (!response.ok) {
+
+
+                    if (
+                        response.status === 401
+                    ) {
+
+
+                        localStorage.removeItem(
+                            "access_token"
+                        );
+
+
+                        localStorage.removeItem(
+                            "token_type"
+                        );
+
+
+                        window.location.href =
+                            "/user/login";
+
+
+                        return;
+
+
+                    }
+
+
+
+                    throw new Error(
+
+                        data.detail ||
+
+                        "Unable to load applications."
+
+                    );
+
+
+                }
+
+
+
+                renderListings(data);
+
+
+            }
+
+
+            catch (error) {
+
+
+                showError(
+                    error.message
+                );
+
+
+            }
+
+
+        }
+
+
+
+        function renderListings(listings) {
+
+
+            listingGrid.innerHTML =
+                "";
+
+
+            errorMessage.classList.remove(
+                "show"
+            );
+
+
+
+            if (
+                !Array.isArray(listings) ||
+                listings.length === 0
+            ) {
+
+
+                countNumber.textContent =
+                    "0";
+
+
+                listingGrid.style.display =
+                    "none";
+
+
+                emptyState.classList.add(
+                    "show"
+                );
+
+
+                return;
+
+
+            }
+
+
+
+            countNumber.textContent =
+                listings.length;
+
+
+            emptyState.classList.remove(
+                "show"
+            );
+
+
+            listingGrid.style.display =
+                "grid";
+
+
+
+            listings.forEach(
+
+                function (listing) {
+
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    card.className =
+                        "listing-card";
+
+
+
+                    card.innerHTML = `
+
+
+                        <div class="card-top">
+
+
+                            <div class="company-section">
+
+
+                                <div class="company-icon">
+
+                                    ${getCompanyLetter(
+                                        listing.company_name
+                                    )}
+
+                                </div>
+
+
+                                <div class="company-details">
+
+
+                                    <h2>
+
+                                        ${escapeHTML(
+                                            listing.role ||
+                                            "Unknown Role"
+                                        )}
+
+                                    </h2>
+
+
+                                    <p>
+
+                                        ${escapeHTML(
+                                            listing.company_name ||
+                                            "Unknown Company"
+                                        )}
+
+                                    </p>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="score-section">
+
+
+                                <span class="score-label">
+
+                                    MATCH
+
+                                </span>
+
+
+                                <span class="score-value">
+
+                                    ${formatScore(
+                                        listing.match_score
+                                    )}
+
+                                </span>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="card-divider">
+
+                        </div>
+
+
+
+                        <div class="application-info">
+
+
+                            <div class="info-item">
+
+
+                                <span class="info-label">
+
+                                    APPLIED
+
+                                </span>
+
+
+                                <span class="info-value">
+
+                                    ${formatDate(
+                                        listing.applied_at
+                                    )}
+
+                                </span>
+
+
+                            </div>
+
+
+
+                            <div class="info-item">
+
+
+                                <span class="info-label">
+
+                                    TRACKING
+
+                                </span>
+
+
+                                <span class="info-value">
+
+                                    ${getDaysTracked(
+                                        listing.applied_at
+                                    )}
+
+                                </span>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <button
+                            class="view-btn"
+                            data-id="${listing.id}"
+                        >
+
+                            View Application
+
+                            <span>
+
+                                →
+
+                            </span>
+
+                        </button>
+
+
+                    `;
+
+
+
+                    const viewButton =
+                        card.querySelector(
+                            ".view-btn"
+                        );
+
+
+
+                    viewButton.addEventListener(
+
+                        "click",
+
+                        function () {
+
+
+                            openListing(
+                                listing.id
+                            );
+
+
+                        }
+
+                    );
+
+
+
+                    card.addEventListener(
+
+                        "click",
+
+                        function (event) {
+
+
+                            if (
+                                event.target.closest(
+                                    ".view-btn"
+                                )
+                            ) {
+
+
+                                return;
+
+
+                            }
+
+
+                            openListing(
+                                listing.id
+                            );
+
+
+                        }
+
+                    );
+
+
+
+                    listingGrid.appendChild(
+                        card
+                    );
+
+
+                }
+
+            );
+
+
+        }
+
+
+
+        async function loadNotifications() {
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+            if (!token) {
+
+                return;
+
+            }
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    "/notification/get_all",
+
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                const data =
+                    await response.json();
+
+
+
+                if (!response.ok) {
+
+
+                    throw new Error(
+
+                        data.detail ||
+
+                        "Unable to load notifications."
+
+                    );
+
+
+                }
+
+
+
+                renderNotifications(data);
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    error.message
+                );
+
+
+            }
+
+
+        }
+
+
+
+        function renderNotifications(
+            notifications
+        ) {
+
+
+            notificationList.innerHTML =
+                "";
+
+
+
+            if (
+                !Array.isArray(notifications)
+            ) {
+
+
+                notificationCount.textContent =
+                    "0";
+
+
+                return;
+
+
+            }
+
+
+
+            notificationCount.textContent =
+                notifications.length;
+
+
+
+            if (
+                notifications.length === 0
+            ) {
+
+
+                notificationCount.classList.add(
+                    "hidden"
+                );
+
+
+                notificationList.innerHTML = `
+
+                    <div class="no-notifications">
+
+                        <div class="no-notification-icon">
+
+                            ✓
+
+                        </div>
+
+                        <h3>
+
+                            You're all caught up.
+
+                        </h3>
+
+                        <p>
+
+                            New reminders will appear here.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                return;
+
+
+            }
+
+
+
+            notificationCount.classList.remove(
+                "hidden"
+            );
+
+
+
+            notifications.forEach(
+
+                function (notification) {
+
+
+                    const item =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    item.className =
+                        "notification-item";
+
+
+                    item.type =
+                        "button";
+
+
+
+                    item.innerHTML = `
+
+                        <div class="notification-dot">
+
+                        </div>
+
+
+                        <div class="notification-item-content">
+
+
+                            <h3>
+
+                                ${escapeHTML(
+                                    notification.title
+                                )}
+
+                            </h3>
+
+
+                            <p>
+
+                                ${escapeHTML(
+                                    notification.message
+                                )}
+
+                            </p>
+
+
+                            <span class="notification-time">
+
+                                ${formatNotificationDate(
+                                    notification.created_at
+                                )}
+
+                            </span>
+
+
+                        </div>
+
+
+                        <span class="notification-arrow">
+
+                            →
+
+                        </span>
+
+                    `;
+
+
+
+                    item.addEventListener(
+
+                        "click",
+
+                        function () {
+
+
+                            openNotification(
+                                notification.id
+                            );
+
+
+                        }
+
+                    );
+
+
+
+                    notificationList.appendChild(
+                        item
+                    );
+
+
+                }
+
+            );
+
+
+        }
+
+
+
+        async function openNotification(
+            notificationId
+        ) {
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    `/notification/one/${notificationId}`,
+
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                const notification =
+                    await response.json();
+
+
+
+                if (!response.ok) {
+
+
+                    throw new Error(
+
+                        notification.detail ||
+
+                        "Unable to open notification."
+
+                    );
+
+
+                }
+
+
+
+                openedNotificationId =
+                    notification.id;
+
+
+
+                notificationTitle.textContent =
+                    notification.title;
+
+
+
+                notificationMessage.textContent =
+                    notification.message;
+
+
+
+                notificationListView.style.display =
+                    "none";
+
+
+                notificationDetailView.classList.add(
+                    "show"
+                );
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    error.message
+                );
+
+
+            }
+
+
+        }
+
+
+
+        async function deleteOpenedNotification() {
+
+
+            if (
+                openedNotificationId === null
+            ) {
+
+
+                return;
+
+
+            }
+
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    `/notification/delete/${openedNotificationId}`,
+
+                    {
+
+                        method: "DELETE",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                if (!response.ok) {
+
+
+                    const data =
+                        await response.json();
+
+
+                    throw new Error(
+
+                        data.detail ||
+
+                        "Unable to delete notification."
+
+                    );
+
+
+                }
+
+
+
+                openedNotificationId =
+                    null;
+
+
+
+                notificationDetailView.classList.remove(
+                    "show"
+                );
+
+
+                notificationListView.style.display =
+                    "block";
+
+
+
+                await loadNotifications();
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    error.message
+                );
+
+
+            }
+
+
+        }
+
+
+
+        function formatNotificationDate(
+            dateValue
+        ) {
+
+
+            if (!dateValue) {
+
+
+                return "";
+
+
+            }
+
+
+
+            const createdDate =
+                new Date(
+                    dateValue
+                );
+
+
+            const now =
+                new Date();
+
+
+
+            const difference =
+                now - createdDate;
+
+
+
+            const minutes =
+                Math.floor(
+                    difference / 60000
+                );
+
+
+
+            const hours =
+                Math.floor(
+                    difference / 3600000
+                );
+
+
+
+            const days =
+                Math.floor(
+                    difference / 86400000
+                );
+
+
+
+            if (minutes < 1) {
+
+
+                return "Just now";
+
+
+            }
+
+
+
+            if (minutes < 60) {
+
+
+                return `${minutes}m ago`;
+
+
+            }
+
+
+
+            if (hours < 24) {
+
+
+                return `${hours}h ago`;
+
+
+            }
+
+
+
+            if (days === 1) {
+
+
+                return "Yesterday";
+
+
+            }
+
+
+
+            return `${days}d ago`;
+
+
+        }
+
+
+
+        function getCompanyLetter(
+            companyName
+        ) {
+
+
+            if (!companyName) {
+
+
+                return "?";
+
+
+            }
+
+
+            return companyName
+
+                .charAt(0)
+
+                .toUpperCase();
+
+
+        }
+
+
+
+        function formatScore(
+            score
+        ) {
+
+
+            if (
+                score === null ||
+                score === undefined
+            ) {
+
+
+                return "—";
+
+
+            }
+
+
+            return `${score}%`;
+
+
+        }
+
+
+
+        function formatDate(
+            dateValue
+        ) {
+
+
+            if (!dateValue) {
+
+
+                return "Unknown";
+
+
+            }
+
+
+
+            const date =
+                new Date(
+                    dateValue
+                );
+
+
+
+            return date.toLocaleDateString(
+
+                "en-US",
+
+                {
+
+                    day:
+                        "2-digit",
+
+                    month:
+                        "short",
+
+                    year:
+                        "numeric"
+
+                }
+
+            );
+
+
+        }
+
+
+
+        function getDaysTracked(
+            appliedAt
+        ) {
+
+
+            if (!appliedAt) {
+
+
+                return "Unknown";
+
+
+            }
+
+
+
+            const appliedDate =
+                new Date(
+                    appliedAt
+                );
+
+
+            const today =
+                new Date();
+
+
+
+            const difference =
+                today - appliedDate;
+
+
+
+            const days =
+                Math.floor(
+
+                    difference /
+
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+
+                );
+
+
+
+            if (days <= 0) {
+
+
+                return "Today";
+
+
+            }
+
+
+
+            if (days === 1) {
+
+
+                return "1 day";
+
+
+            }
+
+
+
+            return `${days} days`;
+
+
+        }
+
+
+
+        function openListing(
+            listingId
+        ) {
+
+
+            window.location.href =
+                `/listing/details/${listingId}`;
+
+
+        }
+
+
+
+        function openAddListingPage() {
+
+
+            window.location.href =
+                "/user/resume";
+
+
+        }
+
+
+
+        function showError(
+            message
+        ) {
+
+
+            errorMessage.textContent =
+                message;
+
+
+            errorMessage.classList.add(
+                "show"
+            );
+
+
+        }
+
+
+
+        function escapeHTML(
+            value
+        ) {
+
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+
+            element.textContent =
+                value ?? "";
+
+
+            return element.innerHTML;
+
+
+        }
+
+
+
+        notificationBell.addEventListener(
+
+            "click",
+
+            function (event) {
+
+
+                event.stopPropagation();
+
+
+                notificationPanel.classList.toggle(
+                    "show"
+                );
+
+
+                loadNotifications();
+
+
+            }
+
+        );
+
+
+
+        notificationPanel.addEventListener(
+
+            "click",
+
+            function (event) {
+
+
+                event.stopPropagation();
+
+
+            }
+
+        );
+
+
+
+        notificationClose.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                notificationPanel.classList.remove(
+                    "show"
+                );
+
+
+            }
+
+        );
+
+
+
+        notificationBack.addEventListener(
+
+            "click",
+
+            deleteOpenedNotification
+
+        );
+
+
+
+        document.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                notificationPanel.classList.remove(
+                    "show"
+                );
+
+
+            }
+
+        );
+
+
+
+        addListingBtn.addEventListener(
+
+            "click",
+
+            openAddListingPage
+
+        );
+
+
+
+        emptyAddBtn.addEventListener(
+
+            "click",
+
+            openAddListingPage
+
+        );
+
+
+
+        logo.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/dashboard";
+
+
+            }
+
+        );
+
+
+
+        loadListings();
+
+        loadNotifications();
+
+
+    </script>
+
+
+</body>
+
+</html>

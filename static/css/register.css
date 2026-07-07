@@ -1,0 +1,417 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family: "Inter", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(119, 122, 255, 0.16),
+            transparent 35%
+        ),
+        #08090c;
+
+    color: #ffffff;
+}
+
+
+/* ================================
+   REGISTER PAGE
+================================ */
+
+
+.register-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+
+/* ================================
+   REGISTER CONTAINER
+================================ */
+
+
+.register-container {
+    width: 100%;
+
+    max-width: 450px;
+
+    padding: 42px;
+
+    border: 1px solid #25272e;
+
+    border-radius: 16px;
+
+    background: rgba(17, 18, 23, 0.88);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ================================
+   LOGO
+================================ */
+
+
+.logo {
+    width: fit-content;
+
+    margin-bottom: 40px;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    cursor: pointer;
+}
+
+
+.logo span {
+    color: #7c7fff;
+}
+
+
+/* ================================
+   REGISTER HEADER
+================================ */
+
+
+.register-header {
+    margin-bottom: 32px;
+}
+
+
+.register-header h1 {
+    font-size: 32px;
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+}
+
+
+.register-header p {
+    margin-top: 12px;
+
+    color: #858791;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+
+form {
+    width: 100%;
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #b7b8bf;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+
+.input-group input {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 15px;
+
+    border: 1px solid #2b2d35;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #111217;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    transition: 0.25s ease;
+}
+
+
+.input-group input::placeholder {
+    color: #555761;
+}
+
+
+.input-group input:hover {
+    border-color: #373944;
+}
+
+
+.input-group input:focus {
+    border-color: #777aff;
+
+    box-shadow:
+        0 0 0 3px rgba(119, 122, 255, 0.1);
+}
+
+
+/* ================================
+   PASSWORD CONTAINER
+================================ */
+
+
+.password-container {
+    position: relative;
+}
+
+
+.password-container input {
+    padding-right: 70px;
+}
+
+
+.show-password-btn {
+    position: absolute;
+
+    top: 50%;
+
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    color: #8c8fff;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.show-password-btn:hover {
+    color: #ffffff;
+}
+
+
+/* ================================
+   ERROR MESSAGE
+================================ */
+
+
+.error-message {
+    display: none;
+
+    margin-bottom: 18px;
+
+    padding: 11px 13px;
+
+    border: 1px solid rgba(255, 93, 93, 0.25);
+
+    border-radius: 7px;
+
+    background: rgba(255, 93, 93, 0.08);
+
+    color: #ff7777;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.error-message.show {
+    display: block;
+}
+
+
+/* ================================
+   REGISTER BUTTON
+================================ */
+
+
+.register-btn {
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #777aff;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.register-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 35px rgba(119, 122, 255, 0.28);
+}
+
+
+.register-btn:active {
+    transform: translateY(0);
+}
+
+
+.register-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ================================
+   LOGIN SECTION
+================================ */
+
+
+.login-section {
+    margin-top: 28px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid #25272e;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.login-section p {
+    color: #747680;
+
+    font-size: 13px;
+}
+
+
+.login-link-btn {
+    border: none;
+
+    background: transparent;
+
+    color: #8c8fff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.login-link-btn:hover {
+    color: #ffffff;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+
+@media (max-width: 500px) {
+
+    .register-page {
+        padding: 20px;
+    }
+
+
+    .register-container {
+        padding: 30px 24px;
+
+        border-radius: 13px;
+    }
+
+
+    .logo {
+        margin-bottom: 35px;
+    }
+
+
+    .register-header h1 {
+        font-size: 28px;
+    }
+
+
+    .register-header p {
+        font-size: 13px;
+    }
+
+
+    .input-group {
+        margin-bottom: 18px;
+    }
+
+}

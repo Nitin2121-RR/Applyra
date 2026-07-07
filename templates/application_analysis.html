@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Application Analysis | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/application_analysis.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                Applyra<span>.</span>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <main class="analysis-page">
+
+
+        <section
+            class="loading-section"
+            id="loadingSection"
+        >
+
+            <div class="loader"></div>
+
+            <h2>
+                Analyzing your application<span>.</span>
+            </h2>
+
+            <p>
+                Our AI agents are comparing your resume
+                with the job requirements.
+            </p>
+
+        </section>
+
+
+
+        <section
+            class="analysis-content"
+            id="analysisContent"
+        >
+
+
+            <div class="page-header">
+
+                <p class="page-label">
+                    AI APPLICATION ANALYSIS
+                </p>
+
+                <h1>
+                    Your application insight<span>.</span>
+                </h1>
+
+                <p class="page-description">
+                    Applyra analyzed the role requirements
+                    against your resume to identify your
+                    strongest matches and important skill gaps.
+                </p>
+
+            </div>
+
+
+
+            <section class="overview-card">
+
+
+                <div class="role-info">
+
+                    <span class="small-label">
+                        PROFILE ANALYSIS
+                    </span>
+
+                    <h2 id="role">
+                        -
+                    </h2>
+
+                    <p id="companyName">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="score-box">
+
+                    <span class="small-label">
+                        MATCH SCORE
+                    </span>
+
+                    <div class="score">
+
+                        <span id="matchScore">
+                            0
+                        </span>%
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <section class="skills-grid">
+
+
+                <div class="skill-card">
+
+                    <p class="section-label">
+                        REQUIRED SKILLS
+                    </p>
+
+                    <p class="section-description">
+                        Core technical skills identified
+                        from the job description.
+                    </p>
+
+                    <div
+                        class="skill-list"
+                        id="requiredSkills"
+                    ></div>
+
+                </div>
+
+
+
+                <div class="skill-card matched-card">
+
+                    <p class="section-label">
+                        MATCHED SKILLS
+                    </p>
+
+                    <p class="section-description">
+                        Skills supported by evidence
+                        found in your resume.
+                    </p>
+
+                    <div
+                        class="skill-list"
+                        id="matchedSkills"
+                    ></div>
+
+                </div>
+
+
+
+                <div class="skill-card missing-card">
+
+                    <p class="section-label">
+                        MISSING SKILLS
+                    </p>
+
+                    <p class="section-description">
+                        Job requirements that were not
+                        clearly demonstrated in your resume.
+                    </p>
+
+                    <div
+                        class="skill-list"
+                        id="missingSkills"
+                    ></div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <section
+                class="recommendation-card"
+                id="recommendationCard"
+            >
+
+                <div class="ai-icon">
+                    AI
+                </div>
+
+                <div>
+
+                    <p class="section-label">
+                        AI RECOMMENDATION
+                    </p>
+
+                    <p
+                        class="recommendation-text"
+                        id="recommendation"
+                    ></p>
+
+                </div>
+
+            </section>
+
+
+
+            <section class="email-section">
+
+
+                <div class="email-header">
+
+                    <div>
+
+                        <p class="section-label">
+                            RECRUITER EMAIL
+                        </p>
+
+                        <h2>
+                            Ready to reach out<span>.</span>
+                        </h2>
+
+                        <p>
+                            A personalized email created from
+                            your resume and this job opportunity.
+                            Review it before sending it to the recruiter.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="copy-btn"
+                        id="copyBtn"
+                    >
+
+                        Copy Email
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="email-box">
+
+                    <p
+                        class="email-text"
+                        id="emailSuggestion"
+                    ></p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <div class="page-actions">
+
+                <button
+                    class="back-btn"
+                    id="backBtn"
+                >
+
+                    ← Back to Applications
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <p
+            class="error-message"
+            id="errorMessage"
+        ></p>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        const loadingSection =
+            document.getElementById(
+                "loadingSection"
+            );
+
+
+        const analysisContent =
+            document.getElementById(
+                "analysisContent"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const role =
+            document.getElementById(
+                "role"
+            );
+
+
+        const companyName =
+            document.getElementById(
+                "companyName"
+            );
+
+
+        const matchScore =
+            document.getElementById(
+                "matchScore"
+            );
+
+
+        const requiredSkills =
+            document.getElementById(
+                "requiredSkills"
+            );
+
+
+        const matchedSkills =
+            document.getElementById(
+                "matchedSkills"
+            );
+
+
+        const missingSkills =
+            document.getElementById(
+                "missingSkills"
+            );
+
+
+        const recommendation =
+            document.getElementById(
+                "recommendation"
+            );
+
+
+        const recommendationCard =
+            document.getElementById(
+                "recommendationCard"
+            );
+
+
+        const emailSuggestion =
+            document.getElementById(
+                "emailSuggestion"
+            );
+
+
+        const copyBtn =
+            document.getElementById(
+                "copyBtn"
+            );
+
+
+        const backBtn =
+            document.getElementById(
+                "backBtn"
+            );
+
+
+
+        async function loadAnalysis() {
+
+
+            const uuid =
+                sessionStorage.getItem(
+                    "resume_uuid"
+                );
+
+
+            if (!uuid) {
+
+                showError(
+                    "Application analysis ID not found."
+                );
+
+                return;
+
+            }
+
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+            if (!token) {
+
+                window.location.href =
+                    "/user/login";
+
+                return;
+
+            }
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    `/user/analyse_resume/${uuid}`,
+
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                const data =
+                    await response.json();
+
+
+
+                if (!response.ok) {
+
+
+                    throw new Error(
+
+                        data.detail ||
+                        "Unable to analyze application."
+
+                    );
+
+                }
+
+
+
+                showAnalysis(
+                    data
+                );
+
+
+            }
+
+
+            catch (error) {
+
+
+                showError(
+                    error.message
+                );
+
+
+            }
+
+
+        }
+
+
+
+        function showAnalysis(
+            data
+        ) {
+
+
+            role.textContent =
+                data.role ||
+                "Unknown Role";
+
+
+            companyName.textContent =
+                data.company_name ||
+                "Unknown Company";
+
+
+            matchScore.textContent =
+                data.match_score ?? 0;
+
+
+
+            renderSkills(
+
+                requiredSkills,
+
+                data.required_skills,
+
+                "required"
+
+            );
+
+
+
+            renderSkills(
+
+                matchedSkills,
+
+                data.matched_skills,
+
+                "matched"
+
+            );
+
+
+
+            renderSkills(
+
+                missingSkills,
+
+                data.missing_skills,
+
+                "missing"
+
+            );
+
+
+
+            if (data.recommendation) {
+
+
+                recommendation.textContent =
+                    data.recommendation;
+
+
+            }
+
+            else {
+
+
+                recommendationCard.style.display =
+                    "none";
+
+
+            }
+
+
+
+            emailSuggestion.textContent =
+
+                data.email_suggestion ||
+
+                "No recruiter email suggestion was generated.";
+
+
+
+            loadingSection.style.display =
+                "none";
+
+
+            analysisContent.classList.add(
+                "show"
+            );
+
+
+        }
+
+
+
+        function renderSkills(
+            container,
+            skills,
+            type
+        ) {
+
+
+            container.innerHTML =
+                "";
+
+
+
+            if (
+                !Array.isArray(skills) ||
+                skills.length === 0
+            ) {
+
+
+                const empty =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                empty.className =
+                    "empty-skill";
+
+
+                empty.textContent =
+                    "None identified";
+
+
+                container.appendChild(
+                    empty
+                );
+
+
+                return;
+
+
+            }
+
+
+
+            skills.forEach(
+
+                function (skill) {
+
+
+                    const tag =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    tag.className =
+                        `skill-tag ${type}`;
+
+
+                    tag.textContent =
+                        skill;
+
+
+                    container.appendChild(
+                        tag
+                    );
+
+
+                }
+
+            );
+
+
+        }
+
+
+
+        copyBtn.addEventListener(
+
+            "click",
+
+            async function () {
+
+
+                const email =
+                    emailSuggestion.textContent;
+
+
+
+                try {
+
+
+                    await navigator.clipboard.writeText(
+                        email
+                    );
+
+
+                    copyBtn.textContent =
+                        "Copied";
+
+
+                    setTimeout(
+
+                        function () {
+
+
+                            copyBtn.textContent =
+                                "Copy Email";
+
+
+                        },
+
+                        1500
+
+                    );
+
+
+                }
+
+
+                catch {
+
+
+                    errorMessage.textContent =
+                        "Unable to copy email.";
+
+
+                }
+
+
+            }
+
+        );
+
+
+
+        backBtn.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                sessionStorage.removeItem(
+                    "resume_uuid"
+                );
+
+
+                window.location.href =
+                    "/listing";
+
+
+            }
+
+        );
+
+
+
+        function showError(
+            message
+        ) {
+
+
+            loadingSection.style.display =
+                "none";
+
+
+            errorMessage.textContent =
+                message;
+
+
+            errorMessage.classList.add(
+                "show"
+            );
+
+
+        }
+
+
+
+        loadAnalysis();
+
+
+    </script>
+
+
+</body>
+
+</html>

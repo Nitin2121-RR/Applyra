@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Job Description | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/job_description.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div
+            class="logo"
+            id="logo"
+        >
+
+            Applyra<span>.</span>
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            id="backBtn"
+        >
+
+            ← Back
+
+        </button>
+
+    </nav>
+
+
+
+    <main class="job-page">
+
+
+        <section class="job-container">
+
+
+            <p class="page-label">
+
+                NEW APPLICATION
+
+            </p>
+
+
+            <h1>
+
+                Add job description<span>.</span>
+
+            </h1>
+
+
+            <p class="page-description">
+
+                Paste the complete job description
+                for the role you are applying to.
+
+            </p>
+
+
+
+            <div class="job-card">
+
+
+                <label for="jobDescription">
+
+                    JOB DESCRIPTION
+
+                </label>
+
+
+                <textarea
+                    id="jobDescription"
+                    placeholder="Paste the complete job description here..."
+                ></textarea>
+
+
+            </div>
+
+
+
+            <p
+                class="error-message"
+                id="errorMessage"
+            ></p>
+
+
+
+            <button
+                class="next-btn"
+                id="nextBtn"
+            >
+
+
+                <span id="nextText">
+
+                    Next
+
+                </span>
+
+
+                <span>
+
+                    →
+
+                </span>
+
+
+            </button>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        const jobDescription =
+            document.getElementById(
+                "jobDescription"
+            );
+
+
+        const nextBtn =
+            document.getElementById(
+                "nextBtn"
+            );
+
+
+        const nextText =
+            document.getElementById(
+                "nextText"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const logo =
+            document.getElementById(
+                "logo"
+            );
+
+
+        const backBtn =
+            document.getElementById(
+                "backBtn"
+            );
+
+
+
+        nextBtn.addEventListener(
+
+            "click",
+
+            async function () {
+
+
+                const description =
+                    jobDescription.value.trim();
+
+
+
+                if (!description) {
+
+
+                    errorMessage.textContent =
+                        "Please enter the job description.";
+
+
+                    return;
+
+
+                }
+
+
+
+                const resumeUuid =
+                    sessionStorage.getItem(
+                        "resume_uuid"
+                    );
+
+
+
+                if (!resumeUuid) {
+
+
+                    errorMessage.textContent =
+                        "Resume not found. Please upload your resume again.";
+
+
+                    return;
+
+
+                }
+
+
+
+                const token =
+                    localStorage.getItem(
+                        "access_token"
+                    );
+
+
+
+                if (!token) {
+
+
+                    window.location.href =
+                        "/user/login";
+
+
+                    return;
+
+
+                }
+
+
+
+                nextBtn.disabled =
+                    true;
+
+
+                nextText.textContent =
+                    "Analyzing...";
+
+
+                errorMessage.textContent =
+                    "";
+
+
+
+                try {
+
+
+                    const response = await fetch(
+
+                        "/user/job_description",
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    resume_uuid:
+                                        resumeUuid,
+
+                                    job_description:
+                                        description
+
+                                })
+
+                        }
+
+                    );
+
+
+
+                    const data =
+                        await response.json();
+
+
+
+                    if (!response.ok) {
+
+
+                        throw new Error(
+
+                            data.detail ||
+
+                            "Unable to process job description."
+
+                        );
+
+
+                    }
+
+
+
+                    window.location.href =
+                        "/user/analyse_resume";
+                }
+
+
+                catch (error) {
+
+
+                    errorMessage.textContent =
+                        error.message;
+
+
+                    nextBtn.disabled =
+                        false;
+
+
+                    nextText.textContent =
+                        "Next";
+
+
+                }
+
+
+            }
+
+        );
+
+
+
+        backBtn.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/listing/add";
+
+
+            }
+
+        );
+
+
+
+        logo.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/listings";
+
+
+            }
+
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>

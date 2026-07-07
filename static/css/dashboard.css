@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family: "Inter", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(119, 122, 255, 0.18),
+            transparent 35%
+        ),
+        #08090c;
+
+    color: #ffffff;
+}
+
+
+.dashboard-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px;
+}
+
+
+.welcome-container {
+    width: 100%;
+
+    max-width: 850px;
+
+    min-height: 520px;
+
+    padding: 45px;
+
+    border: 1px solid #25272e;
+
+    border-radius: 18px;
+
+    background: rgba(17, 18, 23, 0.88);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.45);
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.logo {
+    width: fit-content;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    cursor: pointer;
+}
+
+
+.logo span {
+    color: #7c7fff;
+}
+
+
+.welcome-content {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.small-text {
+    margin-bottom: 20px;
+
+    color: #8c8fff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.welcome-content h1 {
+    font-size: clamp(45px, 6vw, 72px);
+
+    font-weight: 700;
+
+    letter-spacing: -3px;
+}
+
+
+.welcome-content h1 span {
+    color: #8c8fff;
+}
+
+
+.description {
+    max-width: 500px;
+
+    margin-top: 25px;
+
+    color: #858791;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+.continue-btn {
+    margin-top: 40px;
+
+    padding: 16px 28px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #777aff;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.continue-btn span {
+    margin-left: 18px;
+}
+
+
+.continue-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 40px rgba(119, 122, 255, 0.3);
+}
+
+
+.error-message {
+    display: none;
+
+    text-align: center;
+
+    color: #ff7777;
+
+    font-size: 13px;
+}
+
+
+.error-message.show {
+    display: block;
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-page {
+        padding: 18px;
+    }
+
+
+    .welcome-container {
+        min-height: 500px;
+
+        padding: 30px 22px;
+    }
+
+
+    .welcome-content h1 {
+        font-size: 43px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .description {
+        font-size: 14px;
+    }
+
+}

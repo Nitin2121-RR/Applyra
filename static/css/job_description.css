@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --background: #08090d;
+    --surface: #0f1017;
+    --border: #292b36;
+    --text: #f5f5f7;
+    --muted: #8b8d99;
+    --purple: #7471ff;
+    --purple-light: #918eff;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.navbar {
+    height: 80px;
+
+    padding:
+        0 6%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+}
+
+
+.logo {
+    font-size:
+        28px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -1px;
+
+    cursor:
+        pointer;
+}
+
+
+.logo span {
+    color:
+        var(--purple);
+}
+
+
+.back-btn {
+    background:
+        transparent;
+
+    border:
+        none;
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+}
+
+
+.back-btn:hover {
+    color:
+        var(--text);
+}
+
+
+.job-page {
+    min-height:
+        calc(
+            100vh - 80px
+        );
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    padding:
+        70px 20px;
+}
+
+
+.job-container {
+    width:
+        100%;
+
+    max-width:
+        850px;
+}
+
+
+.page-label {
+    color:
+        var(--purple-light);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        2px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.job-container h1 {
+    font-size:
+        56px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -2.5px;
+
+    line-height:
+        1.05;
+}
+
+
+.job-container h1 span {
+    color:
+        var(--purple);
+}
+
+
+.page-description {
+    margin-top:
+        18px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        16px;
+
+    line-height:
+        1.6;
+}
+
+
+.job-card {
+    margin-top:
+        40px;
+
+    padding:
+        30px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.job-card label {
+    display:
+        block;
+
+    margin-bottom:
+        15px;
+
+    color:
+        var(--purple-light);
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.5px;
+}
+
+
+.job-card textarea {
+    width:
+        100%;
+
+    min-height:
+        360px;
+
+    padding:
+        20px;
+
+    resize:
+        vertical;
+
+    background:
+        #08090d;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    outline:
+        none;
+
+    color:
+        var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        15px;
+
+    line-height:
+        1.7;
+}
+
+
+.job-card textarea::placeholder {
+    color:
+        #555762;
+}
+
+
+.job-card textarea:focus {
+    border-color:
+        var(--purple);
+}
+
+
+.error-message {
+    min-height:
+        20px;
+
+    margin-top:
+        18px;
+
+    color:
+        #ff7474;
+
+    font-size:
+        14px;
+}
+
+
+.next-btn {
+    width:
+        100%;
+
+    height:
+        52px;
+
+    margin-top:
+        5px;
+
+    padding:
+        0 22px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    background:
+        var(--purple);
+
+    border:
+        none;
+
+    border-radius:
+        8px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+.next-btn:hover:not(:disabled) {
+    background:
+        var(--purple-light);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.next-btn:disabled {
+    opacity:
+        0.5;
+
+    cursor:
+        not-allowed;
+}
+
+
+@media (
+    max-width: 700px
+) {
+
+    .navbar {
+        height:
+            72px;
+
+        padding:
+            0 20px;
+    }
+
+
+    .job-page {
+        padding:
+            50px 20px;
+    }
+
+
+    .job-container h1 {
+        font-size:
+            42px;
+
+        letter-spacing:
+            -2px;
+    }
+
+
+    .job-card {
+        padding:
+            20px;
+    }
+
+
+    .job-card textarea {
+        min-height:
+            300px;
+    }
+
+}

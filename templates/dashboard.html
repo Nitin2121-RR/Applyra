@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/dashboard.css"
+    >
+</head>
+
+
+<body>
+
+    <main class="dashboard-page">
+
+        <section class="welcome-container">
+
+            <div
+                class="logo"
+                id="logo"
+            >
+                Applyra<span>.</span>
+            </div>
+
+
+            <div class="welcome-content">
+
+                <p class="small-text">
+                    WELCOME TO APPLYRA
+                </p>
+
+
+                <h1>
+                    Welcome,
+                    <span id="userName">
+                        User
+                    </span>
+                </h1>
+
+
+                <p class="description">
+                    Let's build your internship profile and
+                    start analyzing opportunities.
+                </p>
+
+
+                <button
+                    id="continueBtn"
+                    class="continue-btn"
+                >
+                    Continue
+                    <span>→</span>
+                </button>
+
+            </div>
+
+
+            <p
+                id="errorMessage"
+                class="error-message"
+            ></p>
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+        const userName =
+            document.getElementById("userName");
+
+        const continueBtn =
+            document.getElementById("continueBtn");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const logo =
+            document.getElementById("logo");
+
+
+        async function getCurrentUser() {
+
+            const token =
+                localStorage.getItem("access_token");
+
+
+            if (!token) {
+
+                window.location.href =
+                    "/user/login";
+
+                return;
+
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    "/user/me",
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+                    }
+                );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    localStorage.removeItem(
+                        "access_token"
+                    );
+
+                    window.location.href =
+                        "/user/login";
+
+                    return;
+
+                }
+
+
+                userName.textContent =
+                    data.name;
+
+            }
+
+            catch (error) {
+
+                errorMessage.textContent =
+                    "Unable to load your profile.";
+
+                errorMessage.classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+
+
+        continueBtn.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "/listing";
+
+            }
+        );
+
+
+        logo.addEventListener(
+            "click",
+            function () {
+
+                window.location.href = "/";
+
+            }
+        );
+
+
+        getCurrentUser();
+
+    </script>
+
+</body>
+
+</html>

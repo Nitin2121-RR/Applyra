@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/register.css"
+    >
+</head>
+
+
+<body>
+
+    <main class="register-page">
+
+        <section class="register-container">
+
+            <div
+                class="logo"
+                id="logo"
+            >
+                Applyra<span>.</span>
+            </div>
+
+
+            <div class="register-header">
+
+                <h1>
+                    Create your account
+                </h1>
+
+                <p>
+                    Start analyzing and tracking your internship
+                    applications intelligently.
+                </p>
+
+            </div>
+
+
+            <form id="registerForm">
+
+
+                <!-- NAME -->
+
+                <div class="input-group">
+
+                    <label for="name">
+                        Full name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="showPasswordBtn"
+                            class="show-password-btn"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        Confirm password
+                    </label>
+
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="showConfirmPasswordBtn"
+                            class="show-password-btn"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <p
+                    id="errorMessage"
+                    class="error-message"
+                ></p>
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    type="submit"
+                    id="registerBtn"
+                    class="register-btn"
+                >
+                    Create account
+                </button>
+
+            </form>
+
+
+            <div class="login-section">
+
+                <p>
+                    Already have an account?
+                </p>
+
+                <button
+                    id="loginBtn"
+                    class="login-link-btn"
+                >
+                    Login
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+    const registerForm = document.getElementById("registerForm");
+    const errorMessage = document.getElementById("errorMessage");
+    const registerBtn = document.getElementById("registerBtn");
+
+
+    registerForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        errorMessage.textContent = "";
+
+
+        const name = document.getElementById("name").value.trim();
+
+        const email = document.getElementById("email").value.trim();
+
+        const password = document.getElementById("password").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+
+        if (password !== confirmPassword) {
+
+            errorMessage.textContent = "Passwords do not match.";
+
+            errorMessage.classList.add("show");
+
+            return;
+
+        }
+
+
+        registerBtn.disabled = true;
+
+        registerBtn.textContent = "Creating account...";
+
+
+        try {
+
+            const response = await fetch("/user/register", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    username: name,
+
+                    email: email,
+
+                    password: password
+
+                })
+
+            });
+
+
+            const data = await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.detail || "Unable to create account."
+                );
+
+            }
+
+
+            // Account created successfully
+
+            window.location.href = "/user/login";
+
+
+        }
+
+        catch (error) {
+
+            errorMessage.textContent = error.message;
+
+            errorMessage.classList.add("show");
+
+        }
+
+        finally {
+
+            registerBtn.disabled = false;
+
+            registerBtn.textContent = "Create account";
+
+        }
+
+    });
+
+
+
+    document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+
+            window.location.href = "/user/login";
+
+        });
+
+
+
+    document
+        .getElementById("logo")
+        .addEventListener("click", function () {
+
+            window.location.href = "/";
+
+        });
+
+
+
+    document
+        .getElementById("showPasswordBtn")
+        .addEventListener("click", function () {
+
+            const password =
+                document.getElementById("password");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                this.textContent = "Hide";
+
+            }
+
+            else {
+
+                password.type = "password";
+
+                this.textContent = "Show";
+
+            }
+
+        });
+
+
+
+    document
+        .getElementById("showConfirmPasswordBtn")
+        .addEventListener("click", function () {
+
+            const password =
+                document.getElementById("confirmPassword");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                this.textContent = "Hide";
+
+            }
+
+            else {
+
+                password.type = "password";
+
+                this.textContent = "Show";
+
+            }
+
+        });
+
+</script>
+
+</body>
+
+</html>

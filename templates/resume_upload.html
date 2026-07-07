@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Upload Resume | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/resume_upload.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div
+            class="logo"
+            id="logo"
+        >
+
+            Applyra<span>.</span>
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            id="backBtn"
+        >
+
+            ← My Applications
+
+        </button>
+
+    </nav>
+
+
+
+    <main class="resume-page">
+
+
+        <section class="resume-container">
+
+
+            <p class="page-label">
+
+                NEW APPLICATION
+
+            </p>
+
+
+            <h1>
+
+                Upload your resume<span>.</span>
+
+            </h1>
+
+
+            <p class="page-description">
+
+                Upload the resume you want to use
+                for this application.
+
+            </p>
+
+
+
+            <div class="upload-card">
+
+
+                <div class="upload-icon">
+
+                    ↑
+
+                </div>
+
+
+                <h2>
+
+                    Select your resume
+
+                </h2>
+
+
+                <p>
+
+                    PDF format only
+
+                </p>
+
+
+                <label
+                    for="resumeInput"
+                    class="choose-btn"
+                >
+
+                    Choose Resume
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="resumeInput"
+                    accept=".pdf,application/pdf"
+                >
+
+
+                <p
+                    class="selected-file"
+                    id="selectedFile"
+                >
+
+                </p>
+
+
+            </div>
+
+
+
+            <p
+                class="error-message"
+                id="errorMessage"
+            >
+
+            </p>
+
+
+
+            <button
+                class="next-btn"
+                id="nextBtn"
+            >
+
+                <span id="nextText">
+
+                    Next
+
+                </span>
+
+
+                <span>
+
+                    →
+
+                </span>
+
+            </button>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        const resumeInput =
+            document.getElementById(
+                "resumeInput"
+            );
+
+
+        const selectedFile =
+            document.getElementById(
+                "selectedFile"
+            );
+
+
+        const nextBtn =
+            document.getElementById(
+                "nextBtn"
+            );
+
+
+        const nextText =
+            document.getElementById(
+                "nextText"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const logo =
+            document.getElementById(
+                "logo"
+            );
+
+
+        const backBtn =
+            document.getElementById(
+                "backBtn"
+            );
+
+
+
+        resumeInput.addEventListener(
+
+            "change",
+
+            function () {
+
+
+                const file =
+                    resumeInput.files[0];
+
+
+                errorMessage.textContent =
+                    "";
+
+
+                if (!file) {
+
+
+                    selectedFile.textContent =
+                        "";
+
+
+                    return;
+
+
+                }
+
+
+
+                selectedFile.textContent =
+                    file.name;
+
+
+            }
+
+        );
+
+
+
+        nextBtn.addEventListener(
+
+            "click",
+
+            async function () {
+
+
+                const file =
+                    resumeInput.files[0];
+
+
+
+                if (!file) {
+
+
+                    errorMessage.textContent =
+                        "Please select your resume.";
+
+
+                    return;
+
+
+                }
+
+
+
+                if (
+                    file.type !==
+                    "application/pdf"
+                ) {
+
+
+                    errorMessage.textContent =
+                        "Only PDF files are allowed.";
+
+
+                    return;
+
+
+                }
+
+
+
+                const token =
+                    localStorage.getItem(
+                        "access_token"
+                    );
+
+
+
+                if (!token) {
+
+
+                    window.location.href =
+                        "/user/login";
+
+
+                    return;
+
+
+                }
+
+
+
+                const formData =
+                    new FormData();
+
+
+
+                formData.append(
+
+                    "resume",
+
+                    file
+
+                );
+
+
+
+                nextBtn.disabled =
+                    true;
+
+
+                nextText.textContent =
+                    "Uploading...";
+
+
+                errorMessage.textContent =
+                    "";
+
+
+
+                try {
+
+
+                    const response = await fetch(
+
+                        "/user/resume",
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            },
+
+                            body:
+                                formData 
+
+                        }
+
+                    );
+
+
+
+                    const data =
+                        await response.json();
+
+
+
+                    if (!response.ok) {
+
+
+                        if (
+                            response.status === 401
+                        ) {
+
+
+                            localStorage.removeItem(
+                                "access_token"
+                            );
+
+
+                            localStorage.removeItem(
+                                "token_type"
+                            );
+
+
+                            window.location.href =
+                                "/user/login";
+
+
+                            return;
+
+
+                        }
+
+
+
+                        throw new Error(
+
+                            data.detail ||
+
+                            "Unable to upload resume."
+
+                        );
+
+
+                    }
+
+
+
+                    sessionStorage.setItem(
+
+                        "resume_uuid",
+
+                        data.resume_uuid
+
+                    );
+
+
+
+                    window.location.href =
+                        "/user/job_description";
+                }
+
+
+                catch (error) {
+
+
+                    errorMessage.textContent =
+                        error.message;
+
+
+                    nextBtn.disabled =
+                        false;
+
+
+                    nextText.textContent =
+                        "Next";
+
+
+                }
+
+
+            }
+
+        );
+
+
+
+        logo.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/dashboard";
+
+
+            }
+
+        );
+
+
+
+        backBtn.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/listing";
+
+
+            }
+
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>

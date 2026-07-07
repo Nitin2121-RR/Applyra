@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Application Details | Applyra</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/application_details.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div
+                class="logo"
+                id="logo"
+            >
+                Applyra<span>.</span>
+            </div>
+
+
+            <button
+                class="nav-back-btn"
+                id="navBackBtn"
+            >
+                ← My Applications
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <main class="detail-page">
+
+
+        <section
+            class="loading-section"
+            id="loadingSection"
+        >
+
+            <div class="loader"></div>
+
+            <p>
+                Loading application...
+            </p>
+
+        </section>
+
+
+
+        <section
+            class="detail-content"
+            id="detailContent"
+        >
+
+
+            <div class="page-header">
+
+                <p class="page-label">
+                    APPLICATION DETAILS
+                </p>
+
+
+                <h1 id="role">
+                    -
+                </h1>
+
+
+                <p
+                    class="company-name"
+                    id="companyName"
+                >
+                    -
+                </p>
+
+
+                <p class="page-description">
+                    Review your saved AI analysis,
+                    skill match, recommendation,
+                    and recruiter email.
+                </p>
+
+            </div>
+
+
+
+            <section class="score-card">
+
+
+                <div>
+
+                    <p class="section-label">
+                        PROFILE MATCH
+                    </p>
+
+
+                    <h2>
+                        Resume compatibility
+                    </h2>
+
+
+                    <p>
+                        Your resume was compared with
+                        the technical requirements identified
+                        for this role.
+                    </p>
+
+                </div>
+
+
+
+                <div class="score-box">
+
+                    <span id="matchScore">
+                        0
+                    </span>
+
+                    <small>%</small>
+
+                </div>
+
+
+            </section>
+
+
+
+            <section class="skills-grid">
+
+
+                <div class="skill-card">
+
+                    <p class="section-label">
+                        REQUIRED SKILLS
+                    </p>
+
+
+                    <p class="skill-description">
+                        Technical requirements identified
+                        from the job description.
+                    </p>
+
+
+                    <div
+                        class="skill-list"
+                        id="requiredSkills"
+                    ></div>
+
+                </div>
+
+
+
+                <div class="skill-card">
+
+                    <p class="section-label matched-label">
+                        MATCHED SKILLS
+                    </p>
+
+
+                    <p class="skill-description">
+                        Required skills supported by
+                        your resume.
+                    </p>
+
+
+                    <div
+                        class="skill-list"
+                        id="matchedSkills"
+                    ></div>
+
+                </div>
+
+
+
+                <div class="skill-card">
+
+                    <p class="section-label missing-label">
+                        MISSING SKILLS
+                    </p>
+
+
+                    <p class="skill-description">
+                        Requirements not clearly demonstrated
+                        in your resume.
+                    </p>
+
+
+                    <div
+                        class="skill-list"
+                        id="missingSkills"
+                    ></div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <section
+                class="recommendation-card"
+                id="recommendationCard"
+            >
+
+
+                <div class="ai-box">
+                    AI
+                </div>
+
+
+                <div class="recommendation-content">
+
+                    <p class="section-label">
+                        AI RECOMMENDATION
+                    </p>
+
+
+                    <p
+                        id="recommendation"
+                        class="recommendation-text"
+                    ></p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <section class="email-section">
+
+
+                <div class="email-header">
+
+
+                    <div>
+
+                        <p class="section-label">
+                            RECRUITER EMAIL
+                        </p>
+
+
+                        <h2>
+                            Your outreach email<span>.</span>
+                        </h2>
+
+
+                        <p>
+                            This email was generated using
+                            your resume and the role requirements.
+                            Review it before sending.
+                        </p>
+
+                    </div>
+
+
+
+                    <button
+                        class="copy-btn"
+                        id="copyBtn"
+                    >
+                        Copy Email
+                    </button>
+
+
+                </div>
+
+
+
+                <div class="email-box">
+
+                    <p
+                        class="email-text"
+                        id="emailSuggestion"
+                    ></p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <div class="page-actions">
+
+                <button
+                    class="delete-btn"
+                    id="deleteBtn"
+                >
+                    Delete Application
+                </button>
+
+                <button
+                    class="back-btn"
+                    id="backBtn"
+                >
+                    ← Back to Applications
+                </button>
+
+        </div>
+
+
+        </section>
+
+
+
+        <p
+            class="error-message"
+            id="errorMessage"
+        ></p>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        const loadingSection =
+            document.getElementById(
+                "loadingSection"
+            );
+
+
+        const detailContent =
+            document.getElementById(
+                "detailContent"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const role =
+            document.getElementById(
+                "role"
+            );
+
+
+        const companyName =
+            document.getElementById(
+                "companyName"
+            );
+
+
+        const matchScore =
+            document.getElementById(
+                "matchScore"
+            );
+
+
+        const requiredSkills =
+            document.getElementById(
+                "requiredSkills"
+            );
+
+
+        const matchedSkills =
+            document.getElementById(
+                "matchedSkills"
+            );
+
+
+        const missingSkills =
+            document.getElementById(
+                "missingSkills"
+            );
+
+
+        const recommendation =
+            document.getElementById(
+                "recommendation"
+            );
+
+
+        const recommendationCard =
+            document.getElementById(
+                "recommendationCard"
+            );
+
+
+        const emailSuggestion =
+            document.getElementById(
+                "emailSuggestion"
+            );
+
+
+        const copyBtn =
+            document.getElementById(
+                "copyBtn"
+            );
+
+
+        const backBtn =
+            document.getElementById(
+                "backBtn"
+            );
+
+
+        const navBackBtn =
+            document.getElementById(
+                "navBackBtn"
+            );
+
+
+        const logo =
+            document.getElementById(
+                "logo"
+            );
+
+        const deleteBtn =
+            document.getElementById(
+                "deleteBtn"
+            );
+
+        function getApplicationId() {
+
+
+            const path =
+                window.location.pathname;
+
+
+            const parts =
+                path.split("/");
+
+
+            return parts[
+                parts.length - 1
+            ];
+
+
+        }
+
+
+
+        async function loadApplication() {
+
+
+            const applicationId =
+                getApplicationId();
+
+
+
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
+
+
+
+            if (!token) {
+
+
+                window.location.href =
+                    "/user/login";
+
+
+                return;
+
+
+            }
+
+
+
+            try {
+
+
+                const response = await fetch(
+
+                    `/listing/${applicationId}`,
+
+                    {
+
+                        method:
+                            "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                `Bearer ${token}`
+
+                        }
+
+                    }
+
+                );
+
+
+
+                const data =
+                    await response.json();
+
+
+
+                if (!response.ok) {
+
+
+                    throw new Error(
+
+                        data.detail ||
+
+                        "Unable to load application."
+
+                    );
+
+
+                }
+
+
+
+                showApplication(
+                    data
+                );
+
+
+            }
+
+
+            catch (error) {
+
+
+                loadingSection.style.display =
+                    "none";
+
+
+                errorMessage.textContent =
+                    error.message;
+
+
+                errorMessage.style.display =
+                    "block";
+
+
+            }
+
+
+        }
+
+
+
+        function showApplication(
+            data
+        ) {
+
+
+            role.textContent =
+                data.role ||
+                "Unknown Role";
+
+
+            companyName.textContent =
+                data.company_name ||
+                "Unknown Company";
+
+
+            matchScore.textContent =
+                data.match_score ?? 0;
+
+
+
+            renderSkills(
+
+                requiredSkills,
+
+                data.required_skills,
+
+                "required"
+
+            );
+
+
+
+            renderSkills(
+
+                matchedSkills,
+
+                data.matched_skills,
+
+                "matched"
+
+            );
+
+
+
+            renderSkills(
+
+                missingSkills,
+
+                data.missing_skills,
+
+                "missing"
+
+            );
+
+
+
+            if (data.recommendation) {
+
+
+                recommendation.textContent =
+                    data.recommendation;
+
+
+            }
+
+            else {
+
+
+                recommendationCard.style.display =
+                    "none";
+
+
+            }
+
+
+
+            emailSuggestion.textContent =
+
+                data.email_suggestion ||
+
+                "No recruiter email was generated.";
+
+
+
+            loadingSection.style.display =
+                "none";
+
+
+            detailContent.style.display =
+                "block";
+
+
+        }
+
+
+
+        function renderSkills(
+            container,
+            skills,
+            type
+        ) {
+
+
+            container.innerHTML =
+                "";
+
+
+
+            if (
+                !Array.isArray(skills) ||
+                skills.length === 0
+            ) {
+
+
+                const empty =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                empty.className =
+                    "empty-text";
+
+
+                empty.textContent =
+                    "None identified";
+
+
+                container.appendChild(
+                    empty
+                );
+
+
+                return;
+
+
+            }
+
+
+
+            skills.forEach(
+
+                function (skill) {
+
+
+                    const skillTag =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    skillTag.className =
+                        `skill-tag ${type}`;
+
+
+                    skillTag.textContent =
+                        skill;
+
+
+                    container.appendChild(
+                        skillTag
+                    );
+
+
+                }
+
+            );
+
+
+        }
+
+
+
+        copyBtn.addEventListener(
+
+            "click",
+
+            async function () {
+
+
+                const email =
+                    emailSuggestion.textContent;
+
+
+
+                await navigator.clipboard.writeText(
+                    email
+                );
+
+
+                copyBtn.textContent =
+                    "Copied";
+
+
+                setTimeout(
+
+                    function () {
+
+
+                        copyBtn.textContent =
+                            "Copy Email";
+
+
+                    },
+
+                    1500
+
+                );
+
+
+            }
+
+        );
+
+        deleteBtn.addEventListener(
+
+            "click",
+
+            async function () {
+
+                const applicationId =
+                    getApplicationId();
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete this application?"
+                    );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                const token =
+                    localStorage.getItem(
+                        "access_token"
+                    );
+
+                if (!token) {
+
+                    window.location.href =
+                        "/user/login";
+
+                    return;
+                }
+
+                deleteBtn.disabled =
+                    true;
+
+                deleteBtn.textContent =
+                    "Deleting...";
+
+                try {
+
+                    const response = await fetch(
+
+                        `/listing/${applicationId}`,
+
+                        {
+                            method: "DELETE",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            }
+                        }
+
+                    );
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.detail ||
+                            "Unable to delete application."
+                        );
+
+                    }
+
+                    window.location.href =
+                        "/listing";
+
+                }
+
+                catch (error) {
+
+                    errorMessage.textContent =
+                        error.message;
+
+                    errorMessage.style.display =
+                        "block";
+
+                    deleteBtn.disabled =
+                        false;
+
+                    deleteBtn.textContent =
+                        "Delete Application";
+
+                }
+
+            }
+
+        );
+
+        function goBack() {
+
+
+            window.location.href =
+                "/listing";
+
+
+        }
+
+
+
+        backBtn.addEventListener(
+            "click",
+            goBack
+        );
+
+
+        navBackBtn.addEventListener(
+            "click",
+            goBack
+        );
+
+
+
+        logo.addEventListener(
+
+            "click",
+
+            function () {
+
+
+                window.location.href =
+                    "/user/dashboard";
+
+
+            }
+
+        );
+
+
+
+        loadApplication();
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,630 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --background: #08090d;
+    --surface: #0f1017;
+    --surface-light: #14151d;
+
+    --border: #292b36;
+
+    --text: #f5f5f7;
+    --muted: #8b8d99;
+
+    --purple: #7471ff;
+    --purple-light: #918eff;
+
+    --green: #5ee6a8;
+    --red: #ff7777;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.navbar {
+    height: 80px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+}
+
+
+.nav-container {
+    width: 100%;
+
+    max-width: 1500px;
+
+    height: 100%;
+
+    margin: auto;
+
+    padding: 0 50px;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.logo {
+    font-size: 29px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+
+.logo span {
+    color: var(--purple);
+}
+
+
+.analysis-page {
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 70px 40px 100px;
+}
+
+
+.loading-section {
+    min-height: 500px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.loader {
+    width: 48px;
+
+    height: 48px;
+
+    margin-bottom: 28px;
+
+    border:
+        3px solid
+        var(--border);
+
+    border-top-color:
+        var(--purple);
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+}
+
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+.loading-section h2 {
+    font-size: 27px;
+}
+
+
+.loading-section h2 span {
+    color: var(--purple);
+}
+
+
+.loading-section p {
+    margin-top: 12px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+}
+
+
+.analysis-content {
+    display: none;
+}
+
+
+.analysis-content.show {
+    display: block;
+}
+
+
+.page-header {
+    margin-bottom: 45px;
+}
+
+
+.page-label,
+.section-label,
+.small-label {
+    color: var(--purple-light);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+}
+
+
+.page-header h1 {
+    margin-top: 20px;
+
+    font-size: 58px;
+
+    letter-spacing: -3px;
+}
+
+
+.page-header h1 span,
+.email-header h2 span {
+    color: var(--purple);
+}
+
+
+.page-description {
+    max-width: 700px;
+
+    margin-top: 18px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+.overview-card {
+    padding: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 15px;
+}
+
+
+.role-info h2 {
+    margin-top: 14px;
+
+    font-size: 29px;
+}
+
+
+.role-info p {
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+
+.score-box {
+    text-align: right;
+}
+
+
+.score {
+    margin-top: 8px;
+
+    color: var(--purple-light);
+
+    font-size: 55px;
+
+    font-weight: 700;
+}
+
+
+.skills-grid {
+    margin-top: 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+.skill-card {
+    min-height: 240px;
+
+    padding: 27px;
+
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+}
+
+
+.section-description {
+    margin-top: 13px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+.skill-list {
+    margin-top: 25px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+}
+
+
+.skill-tag {
+    padding: 8px 11px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.skill-tag.required {
+    color: #c8c7ff;
+
+    background:
+        rgba(116, 113, 255, 0.1);
+
+    border:
+        1px solid
+        rgba(116, 113, 255, 0.25);
+}
+
+
+.skill-tag.matched {
+    color: var(--green);
+
+    background:
+        rgba(94, 230, 168, 0.08);
+
+    border:
+        1px solid
+        rgba(94, 230, 168, 0.2);
+}
+
+
+.skill-tag.missing {
+    color: var(--red);
+
+    background:
+        rgba(255, 119, 119, 0.08);
+
+    border:
+        1px solid
+        rgba(255, 119, 119, 0.2);
+}
+
+
+.empty-skill {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.recommendation-card {
+    margin-top: 22px;
+
+    padding: 30px;
+
+    display: flex;
+
+    gap: 22px;
+
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+}
+
+
+.ai-icon {
+    width: 50px;
+
+    height: 50px;
+
+    min-width: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--purple);
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.recommendation-text {
+    margin-top: 14px;
+
+    color: #c4c5ce;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+}
+
+
+.email-section {
+    margin-top: 22px;
+
+    padding: 35px;
+
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 15px;
+}
+
+
+.email-header {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.email-header h2 {
+    margin-top: 12px;
+
+    font-size: 30px;
+}
+
+
+.email-header p {
+    max-width: 650px;
+
+    margin-top: 12px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+.copy-btn {
+    padding: 12px 20px;
+
+    background: transparent;
+
+    border:
+        1px solid
+        var(--purple);
+
+    border-radius: 7px;
+
+    color: var(--purple-light);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.copy-btn:hover {
+    background:
+        rgba(116, 113, 255, 0.1);
+}
+
+
+.email-box {
+    margin-top: 28px;
+
+    padding: 28px;
+
+    background: #0a0b10;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 10px;
+}
+
+
+.email-text {
+    color: #d2d3da;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+}
+
+
+.page-actions {
+    margin-top: 35px;
+}
+
+
+.back-btn {
+    width: 100%;
+
+    height: 52px;
+
+    background: var(--purple);
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.back-btn:hover {
+    background: var(--purple-light);
+}
+
+
+.error-message {
+    display: none;
+
+    padding: 18px;
+
+    color: var(--red);
+
+    background:
+        rgba(255, 119, 119, 0.07);
+
+    border:
+        1px solid
+        rgba(255, 119, 119, 0.2);
+
+    border-radius: 8px;
+}
+
+
+.error-message.show {
+    display: block;
+}
+
+
+@media (max-width: 850px) {
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .overview-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .score-box {
+        text-align: left;
+    }
+
+
+    .email-header {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .copy-btn {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .nav-container {
+        padding: 0 20px;
+    }
+
+
+    .analysis-page {
+        padding: 50px 20px 70px;
+    }
+
+
+    .page-header h1 {
+        font-size: 42px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .overview-card,
+    .email-section {
+        padding: 25px 20px;
+    }
+
+}
